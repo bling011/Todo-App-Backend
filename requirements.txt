@@ -57,3 +57,4 @@ yarl==1.18.3
 
 # Windows-specific dependencies
 pywin32==308; sys_platform == 'win32'  # For Windows users
+gunicorn==20.1.0  # Specify the version, or just gunicorn if you want the latest

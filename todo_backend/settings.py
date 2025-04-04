@@ -12,7 +12,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 # ALLOWED_HOSTS: Ensuring it's properly formatted
-ALLOWED_HOSTS = ["todo-app-backend-oo2b.onrender.com"]  # Only allow your backend host
+ALLOWED_HOSTS = ["todo-app-backend-1-j1c6.onrender.com", ".onrender.com"]
+  # Only allow your backend host
 
 # Application definition
 INSTALLED_APPS = [

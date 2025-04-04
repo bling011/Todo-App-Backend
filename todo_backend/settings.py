@@ -9,9 +9,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split(" ") # Change to specific domains in production
+# ALLOWED_HOSTS: Ensuring it's properly formatted
+ALLOWED_HOSTS = ["todo-app-backend-oo2b.onrender.com"]  # Only allow your backend host
 
 # Application definition
 INSTALLED_APPS = [
@@ -62,15 +63,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'todo_backend.wsgi.application'
 
-# Database configuration (SQLite for development)
+# Database configuration (Use PostgreSQL if DATABASE_URL is set, otherwise use SQLite)
+database_url = os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3")  # Fallback to SQLite if not set
 DATABASES = {
-    "default": dj_database_url.parse(
-        os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3")  # Fallback to SQLite if not set
-    )
+    "default": dj_database_url.parse(database_url)
 }
-
-DATABASES['default'] = dj_database_url.parse(os.environ.get("DATABASE_URL", ""))
-database_url = os.environ.get("DATABASE_URL")
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -88,8 +85,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-
-# Static files will be stored in this directory in production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Use Whitenoise to serve static files in production
@@ -122,5 +117,3 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-#postgres: postgresql://todo_app_backend_d2wy_user:S0vK6ftW0GBtuWP4Ig2mhfkZgqJoZdI1@dpg-cvnqk7vgi27c7383p5e0-a.oregon-postgres.render.com/todo_app_backend_d2wy

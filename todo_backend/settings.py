@@ -110,6 +110,30 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "https://bling011.github.io",  # Allow GitHub Pages frontend
+    "https://todo-app-backend-oo2b.onrender.com",  # Allow your deployed backend
+]
 
-# CORS settings (allow all origins for development)
-CORS_ALLOW_ALL_ORIGINS = True  # Restrict this in production
+# Allow GitHub Pages and backend API server to bypass CSRF protection
+CSRF_TRUSTED_ORIGINS = [
+    "https://bling011.github.io",
+    "https://todo-app-backend-oo2b.onrender.com",
+]
+
+# Enable CORS for specific methods (optional, useful for security)
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
+
+# Allow credentials if needed (e.g., for authentication)
+CORS_ALLOW_CREDENTIALS = True
+
+# REMOVE this line, as it overrides `CORS_ALLOWED_ORIGINS`
+# CORS_ALLOW_ALL_ORIGINS = True  ❌ REMOVE THIS

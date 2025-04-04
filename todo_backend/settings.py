@@ -1,3 +1,4 @@
+
 from pathlib import Path
 import os
 import dj_database_url
@@ -6,14 +7,18 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "your-default-secret-key")  # Add a fallback for local testing
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 # ALLOWED_HOSTS: Ensuring it's properly formatted
-ALLOWED_HOSTS = ["todo-app-backend-1-j1c6.onrender.com", ".onrender.com"]
-  # Only allow your backend host
+ALLOWED_HOSTS = [
+    "todo-app-backend-1-j1c6.onrender.com",  # Your Render backend
+    ".onrender.com",  # Allow subdomains on Render
+    "localhost",  # For local development
+    "127.0.0.1"  # Localhost alternative
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -35,7 +40,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # Must be first for CORS headers
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add Whitenoise middleware
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add Whitenoise middleware for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,16 +96,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Use Whitenoise to serve static files in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# CORS settings
+# CORS settings (Ensures frontend can communicate with backend)
 CORS_ALLOWED_ORIGINS = [
     "https://bling011.github.io",  # Allow GitHub Pages frontend
-    "https://todo-app-backend-oo2b.onrender.com",  # Allow your deployed backend
+    "https://todo-app-backend-1-j1c6.onrender.com",  # Allow your deployed backend
 ]
 
 # Allow GitHub Pages and backend API server to bypass CSRF protection
 CSRF_TRUSTED_ORIGINS = [
     "https://bling011.github.io",
-    "https://todo-app-backend-oo2b.onrender.com",
+    "https://todo-app-backend-1-j1c6.onrender.com",
 ]
 
 # Enable CORS for specific methods (optional, useful for security)

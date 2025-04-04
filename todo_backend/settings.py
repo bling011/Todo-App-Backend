@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split("") # Change to specific domains in production
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split(" ") # Change to specific domains in production
 
 # Application definition
 INSTALLED_APPS = [
@@ -64,14 +64,12 @@ WSGI_APPLICATION = 'todo_backend.wsgi.application'
 
 # Database configuration (SQLite for development)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.parse(
+        os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3")  # Fallback to SQLite if not set
+    )
 }
 
-DATABASES['default'] = dj_database_url.parse("databased_url")
-
+DATABASES['default'] = dj_database_url.parse(os.environ.get("DATABASE_URL", ""))
 database_url = os.environ.get("DATABASE_URL")
 
 # Password validation

@@ -7,7 +7,6 @@ gunicorn==23.0.0
 packaging==24.2
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
-pywin32==306
 sqlparse==0.5.3
 typing_extensions==4.13.1
 tzdata==2025.2

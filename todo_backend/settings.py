@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
 
 # Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +22,7 @@ SECRET_KEY = 'django-insecure-x2xxxmc)@!^!p@ygl58wpr3f&ftkydwxr+15yjeu3dl5+zd*&v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://todo-app-backend-ug7y.onrender.com']  # Change to specific domains in production
+ALLOWED_HOSTS = ['*']  # Change to specific domains in production
 
 
 # Application definition
@@ -44,13 +43,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # Must be first for CORS headers
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -86,9 +82,6 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
-}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

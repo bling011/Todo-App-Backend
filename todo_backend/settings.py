@@ -1,16 +1,17 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 # Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x2xxxmc)@!^!p@ygl58wpr3f&ftkydwxr+15yjeu3dl5+zd*&v'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
 
-ALLOWED_HOSTS = ['*']  # Change to specific domains in production
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split("") # Change to specific domains in production
 
 # Application definition
 INSTALLED_APPS = [
@@ -69,6 +70,10 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = dj_database_url.parse("databased_url")
+
+database_url = os.environ.get("DATABASE_URL")
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -120,3 +125,4 @@ CORS_ALLOW_CREDENTIALS = True
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#postgres: postgresql://todo_app_backend_d2wy_user:S0vK6ftW0GBtuWP4Ig2mhfkZgqJoZdI1@dpg-cvnqk7vgi27c7383p5e0-a.oregon-postgres.render.com/todo_app_backend_d2wy
